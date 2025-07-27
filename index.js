@@ -22,6 +22,7 @@ arrow.forEach((item, index) => {
     }
   });
   console.log(moviesList[index].querySelectorAll("img").length);
+  console.log(window.innerWidth);
 });
 
 const ball = document.querySelector(".toggle-ball");

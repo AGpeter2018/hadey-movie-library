@@ -289,3 +289,9 @@ body {
   background-color: white;
   transform: translateX(-20px);
 }
+
+@media screen and (max-width: 940px) {
+  .menu-container {
+    display: none;
+  }
+}
