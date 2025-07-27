@@ -44,6 +44,7 @@ body {
 .menu-list {
   display: flex;
   list-style: none;
+  padding-top: 0.85rem;
 }
 
 .menu-item {
@@ -52,6 +53,7 @@ body {
 
 .menu-item a {
   text-decoration: none;
+  color: white;
 }
 
 .menu-item.active {
@@ -84,6 +86,7 @@ body {
   right: 1px;
   border-radius: 50px;
   cursor: pointer;
+  transition: 1s all ease;
 }
 
 .toggle-icon {
@@ -171,6 +174,10 @@ body {
   transition: all 1s ease-in-out;
 }
 
+.movie-list-title {
+  color: white;
+}
+
 .movie-list-item {
   margin-right: 30px;
   position: relative;
@@ -244,4 +251,41 @@ body {
   cursor: pointer;
   color: lightgray;
   opacity: 0.5;
+}
+
+.container.active {
+  background-color: white;
+}
+
+.movie-list-title.active {
+  color: black;
+}
+
+.navbar-container.active {
+  background-color: white;
+}
+
+.menu-item a.active {
+  color: black;
+}
+
+.profile-container.active {
+  color: black;
+}
+
+.sidebar.active {
+  background-color: white;
+}
+
+.left-menu-icon.active {
+  color: black;
+}
+
+.toggle.active {
+  background-color: black;
+}
+
+.toggle-ball.active {
+  background-color: white;
+  transform: translateX(-20px);
 }
