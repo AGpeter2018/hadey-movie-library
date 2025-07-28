@@ -1,29 +1,7 @@
 "use strict";
-const arrow = document.querySelectorAll(".arrow");
+const arrows = document.querySelectorAll(".arrow");
 const movieItems = document.querySelectorAll(".movie-list-item");
-const moviesList = document.querySelectorAll(".movie-list");
-
-// arrow.addEventListener("click", () => {
-//   console.log("clicked");
-// });
-
-arrow.forEach((item, index) => {
-  const itemNum = moviesList[index].querySelectorAll("img").length;
-  let clickCounter = 0;
-  item.addEventListener("click", () => {
-    clickCounter++;
-    if (itemNum - (4 + clickCounter) >= 0) {
-      moviesList[index].style.transform = `translateX(${
-        moviesList[index].computedStyleMap().get("transform")[0].x.value - 320
-      }px)`;
-    } else {
-      moviesList[index].style.transform = "translate(0)";
-      clickCounter = 0;
-    }
-  });
-  console.log(moviesList[index].querySelectorAll("img").length);
-  console.log(window.innerWidth);
-});
+const moviesList = document.querySelectorAll(".movie-list-wrapper");
 
 const ball = document.querySelector(".toggle-ball");
 const items = document.querySelectorAll(
@@ -36,3 +14,260 @@ ball.addEventListener("click", () => {
   });
   ball.classList.toggle("active");
 });
+
+class Movie {
+  constructor(title, image, description) {
+    this.title = title;
+    this.image = image;
+    this.description = description;
+  }
+
+  renderSpinal() {
+    return `
+     <div class="spinner hide">
+       <i class="fa-solid fa-gear spin"></i>
+      </div>
+       
+
+    `;
+  }
+  // displayInfo() {
+  //   return `
+  //       <div class="movie-list-item">
+  //               <img
+  //                 src="${this.image}"
+  //                 alt=""
+  //                 class="movie-list-item-img"
+  //               />
+  //               <span class="movie-list-item-title">${this.title}</span>
+  //               <p class="movie-list-item-desc">
+  //                 ${this.description}
+  //               </p>
+  //               <button class="list-item-button">WATCH</button>
+  //             </div>
+  //   `;
+  // }
+}
+const movies = new Movie();
+
+class ActionMovies extends Movie {
+  constructor(title, image, description, genre) {
+    super(title, image, description);
+    this.genre = genre || "Action";
+  }
+
+  displayInfo() {
+    return `
+         
+  
+              <div class="movie-list-wrapper">
+                <div class="movie-list">
+                 <div class="movie-list-item">
+                <img
+                  src="${this.image}"
+                  alt=""
+                  class="movie-list-item-img"
+                />
+                <span class="movie-list-item-title">${this.title}</span>
+                <p class="movie-list-item-desc">
+                  ${this.description}
+                </p>
+                <button class="list-item-button">WATCH</button>
+              </div>
+                </div>
+              </div>
+        `;
+    // const movieListContainer = document.querySelector(".movie-list-container");
+    // movieListContainer.insertAdjacentHTML("afterbegin", html);
+  }
+}
+
+class ComedyMovies extends Movie {
+  constructor(title, image, description, genre) {
+    super(title, image, description);
+    this.genre = genre || "Comedy";
+  }
+
+  displayInfo() {
+    return `
+          
+              <div class="movie-list-wrapper">
+                <div class="movie-list ">
+                 <div class="movie-list-item ">
+                    <img
+                     src="${this.image}"
+                     alt=""
+                     class="movie-list-item-img"
+                    />
+                    <span class="movie-list-item-title">${this.title}</span>
+                    <p class="movie-list-item-desc">
+                     ${this.description}
+                    </p>
+                     <button class="list-item-button">WATCH</button>
+                 </div>
+                </div>
+              </div>
+        `;
+  }
+}
+
+class AnimationMovies extends Movie {
+  constructor(title, image, description, genre) {
+    super(title, image, description);
+    this.genre = genre;
+  }
+
+  displayInfo() {
+    return `
+          
+              <div class="movie-list-wrapper">
+                <div class="movie-list ">
+                 <div class="movie-list-item ">
+                    <img
+                     src="${this.image}"
+                     alt=""
+                     class="movie-list-item-img"
+                    />
+                    <span class="movie-list-item-title">${this.title}</span>
+                    <p class="movie-list-item-desc">
+                     ${this.description}
+                    </p>
+                     <button class="list-item-button">WATCH</button>
+                 </div>
+                </div>
+              </div>
+        `;
+  }
+}
+
+const fetchMovies = async () => {
+  try {
+    const KEY = "c5ad3c2d";
+    // const TITLE = "Guardians of the galaxy";
+    const movieTitles = [
+      "Inception",
+      "The Matrix",
+      "The Dark Knight",
+      "Avengers: Endgame",
+      "Die Hard",
+      " Christmas in Lagos",
+      " Something About the Briggs",
+      "  The Razz Guy",
+      "Everybody Loves Jenifa",
+      "The Waiter",
+      "The Wedding Party 2: Destination Dubai",
+      "Jenifa's Diary: The Movie",
+      "The Wedding Party",
+      "Chief Daddy",
+      "Merry Men: The Real Yoruba Demons",
+      "King of Boys: The Return of the King (Drama with comedic elements)",
+      "Omo Ghetto: The Saga",
+      "KPop Demon Hunters",
+      "Smurfs",
+      "Elio",
+      " The Wild Robot",
+      "The Bad Guys",
+      "Coyote vs. Acme",
+      "Ne Zha II",
+      "Spider-Man: Across the Spider-Verse",
+      "Flow",
+      "Lilo & Stitch",
+      "The Incredibles",
+      "Moana 2",
+      "Zootopia",
+      "Ratatouille",
+      " Spider-Man: Into the Spider-Verse",
+      "Spirited Away",
+      " Demon Slayer -Kimetsu no Yaiba- The Movie: Infinity Castle",
+      "The Bad Guys 2",
+      "Predator: Killer of Killers",
+      "Mahavatar Narsimha",
+      "How to Train Your Dragon",
+    ];
+
+    for (const TITLE of movieTitles) {
+      try {
+        const response = await fetch(
+          `https://www.omdbapi.com/?t=${TITLE}&apikey=${KEY}`
+        );
+        const data = await response.json();
+        // return data.results;
+        console.log(data);
+        if (data.Response === "True") {
+          const genre = data.Genre;
+          if (genre && genre.includes("Action")) {
+            const actionMovies = new ActionMovies(
+              data.Title,
+              data.Poster,
+              data.Plot
+            );
+            const movieListContainer = document.querySelector(
+              ".movie-list-container"
+            );
+
+            movieListContainer.innerHTML += actionMovies.displayInfo();
+          } else if (
+            (genre && genre.includes("Comedy")) ||
+            genre.includes("N/A") ||
+            // genre.includes("Drama") ||
+            // genre.includes("Romance") ||
+            // genre.includes("Adventure") ||
+            genre.includes("Action" && "Comedy")
+          ) {
+            const comedyMovies = new ComedyMovies(
+              data.Title,
+              data.Poster,
+              data.Plot
+            );
+            const movieListContainerComedy = document.querySelector(
+              ".movie-list-container-comedy"
+            );
+
+            movieListContainerComedy.innerHTML += comedyMovies.displayInfo();
+          } else if (
+            genre &&
+            genre.includes("Animation" || "drama" || "adventure" || "comedy")
+          ) {
+            const animationMovies = new AnimationMovies(
+              data.Title,
+              data.Poster,
+              data.Plot
+            );
+            const movieListContainerAnimation = document.querySelector(
+              ".movie-list-container-adventure"
+            );
+            movieListContainerAnimation.innerHTML +=
+              animationMovies.displayInfo();
+          }
+        }
+
+        arrows.forEach((item, index) => {
+          const itemNum = moviesList[index].querySelectorAll(
+            ".movie-list-item-img"
+          ).length;
+          let clickCounter = 0;
+          item.addEventListener("click", () => {
+            clickCounter++;
+            if (itemNum - (4 + clickCounter) >= 0) {
+              movieItems[index].style.transform = `translateX(${
+                movieItems[index].computedStyleMap().get("transform")[0].x
+                  .value - 320
+              }px)`;
+            } else {
+              movieItems[index].style.transform = "translate(0)";
+              clickCounter = 0;
+            }
+          });
+
+          console.log(window.innerWidth);
+          console.log(document.querySelectorAll(".movie-list-item-img"));
+        });
+      } catch (error) {
+        console.error(`Error fetching movie "${TITLE}":`, error.message);
+      }
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+fetchMovies();

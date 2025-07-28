@@ -157,16 +157,29 @@ body {
   font-weight: bold;
 }
 
-.movie-list-container {
-  padding: 0 20px;
+.movie-list-container,
+.movie-list-container-comedy {
+  padding: 0 5rem;
+  display: flex;
+  justify-content: center;
+  /* width: 150%; */
+  /* align-items: self-start; */
+  overflow: hidden;
+  /* gap: 0.75rem;
+  align-items: center;
+
+  /* display: flex;
+  overflow: hidden; 
+  gap: 0.75rem; 
+  padding: 10px;  */
 }
 
 .movie-list-wrapper {
   position: relative;
-  overflow: hidden;
 }
 
 .movie-list {
+  position: relative;
   display: flex;
   align-items: center;
   height: 300px;
@@ -179,13 +192,17 @@ body {
 }
 
 .movie-list-item {
-  margin-right: 30px;
   position: relative;
+  margin-left: 30px;
+  padding-right: 1rem;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
 }
 
 .movie-list-item:hover .movie-list-item-img {
   transform: scale(1.2);
-  margin: 0 30;
+  margin: 0 25px;
   opacity: 0.5;
 }
 
@@ -196,6 +213,7 @@ body {
 }
 
 .movie-list-item-img {
+  /* flex-shrink: 0; */
   transition: all 1s ease-in-out;
   width: 292px;
   height: 200px;
@@ -251,6 +269,7 @@ body {
   cursor: pointer;
   color: lightgray;
   opacity: 0.5;
+  z-index: 5;
 }
 
 .container.active {
@@ -293,5 +312,26 @@ body {
 @media screen and (max-width: 940px) {
   .menu-container {
     display: none;
+  }
+}
+.spinner {
+  margin: 5rem auto;
+  text-align: center;
+}
+
+spin {
+  height: 6rem;
+  width: 6rem;
+  color: antiquewhite;
+  animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
