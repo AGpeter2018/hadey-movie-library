@@ -161,7 +161,7 @@ body {
   padding: 0 5rem;
   display: flex;
   justify-content: center;
-  width: 150%;
+  /* width: 150%; */
   /* align-items: self-start; */
   overflow: hidden;
   /* gap: 0.75rem;
@@ -250,6 +250,12 @@ body {
   object-fit: cover;
   border-radius: 20px;
 }
+/* .movie-list-item-img-animation {
+  width: 0 auto;
+  height: 400px;
+  width: 500px;
+  object-fit: cover;
+} */
 
 .movie-list-item-title {
   background-color: #333;
@@ -313,6 +319,26 @@ body {
 
   transition: 1s all ease-in-out;
 }
+
+.rating {
+  color: red;
+  position: absolute;
+  bottom: 20px;
+  opacity: 0;
+  right: 50px;
+}
+.ratings {
+  color: green;
+  position: absolute;
+  bottom: 20px;
+  /* opacity: 0; */
+  right: 50px;
+}
+
+.animation {
+  margin: 1rem 18rem;
+}
+
 .list-item-button-animation {
   padding: 10px;
   background-color: #4dbf00;
@@ -402,4 +428,15 @@ spin {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.movie-list-container-adventure {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(102, 101, 101, 0.075),
+      #151515
+    ),
+    url("./image/img-4.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }

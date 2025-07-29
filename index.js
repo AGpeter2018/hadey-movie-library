@@ -31,29 +31,27 @@ class Movie {
 
     `;
   }
-  // displayInfo() {
-  //   return `
-  //       <div class="movie-list-item">
-  //               <img
-  //                 src="${this.image}"
-  //                 alt=""
-  //                 class="movie-list-item-img"
-  //               />
-  //               <span class="movie-list-item-title">${this.title}</span>
-  //               <p class="movie-list-item-desc">
-  //                 ${this.description}
-  //               </p>
-  //               <button class="list-item-button">WATCH</button>
-  //             </div>
-  //   `;
-  // }
 }
 const movies = new Movie();
 
 class ActionMovies extends Movie {
-  constructor(title, image, description, genre) {
+  _userRating = null;
+  constructor(title, image, description, genre, rating, ratings) {
     super(title, image, description);
-    this.genre = genre || "Action";
+    this.genre = genre;
+    this.rating = rating;
+    this.ratings = ratings;
+    this.setUserRating(ratings);
+  }
+
+  setUserRating(rating) {
+    if (rating) {
+      this._userRating = rating;
+    }
+  }
+
+  getUserRating() {
+    return this._userRating ?? "Not rated";
   }
 
   displayInfo() {
@@ -69,9 +67,12 @@ class ActionMovies extends Movie {
                   class="movie-list-item-img"
                 />
                 <span class="movie-list-item-title">${this.title}</span>
+                <span class="ratings">${this.ratings}</span>
                 <p class="movie-list-item-desc">
                   ${this.description}
                 </p>
+                <span class="rating">${this.rating}</span>
+                <span class="ratings">${this.getUserRating()}</span>
                 <button class="list-item-button">WATCH</button>
               </div>
                 </div>
@@ -83,9 +84,23 @@ class ActionMovies extends Movie {
 }
 
 class ComedyMovies extends Movie {
-  constructor(title, image, description, genre) {
+  _userRating = null;
+  constructor(title, image, description, genre, rating, ratings) {
     super(title, image, description);
-    this.genre = genre || "Comedy";
+    this.genre = genre;
+    this.rating = rating;
+    this.ratings = ratings;
+    this.setUserRating(ratings);
+  }
+
+  setUserRating(rating) {
+    if (rating) {
+      this._userRating = rating;
+    }
+  }
+
+  getUserRating() {
+    return this._userRating ?? "Not rated";
   }
 
   displayInfo() {
@@ -103,6 +118,8 @@ class ComedyMovies extends Movie {
                     <p class="movie-list-item-desc">
                      ${this.description}
                     </p>
+                    <span class="rating">${this.rating}</span>
+                    <span class="ratings ">${this.getUserRating()}</span>
                      <button class="list-item-button">WATCH</button>
                  </div>
                 </div>
@@ -112,9 +129,23 @@ class ComedyMovies extends Movie {
 }
 
 class AnimationMovies extends Movie {
-  constructor(title, image, description, genre) {
+  _userRating = null;
+  constructor(title, image, description, genre, rating, ratings) {
     super(title, image, description);
     this.genre = genre;
+    this.rating = rating;
+    this.ratings = ratings;
+    this.setUserRating(ratings);
+  }
+
+  setUserRating(rating) {
+    if (rating) {
+      this._userRating = rating;
+    }
+  }
+
+  getUserRating() {
+    return this._userRating ?? "Not rated";
   }
 
   displayInfo() {
@@ -128,10 +159,12 @@ class AnimationMovies extends Movie {
                      alt=""
                      class="movie-list-item-img-animation"
                     />
-                    <span class="movie-list-item-title-animation">${this.title}</span>
+                    <span class="movie-list-item-title">${this.title}</span>
                     <p class="movie-list-item-desc-animation">
                      ${this.description}
                     </p>
+                    <span class="rating animation">${this.rating}</span>
+                    <span class="ratings animation">${this.getUserRating()}</span>
                      <button class="list-item-button-animation">WATCH</button>
                  </div>
                 </div>
@@ -195,15 +228,28 @@ const fetchMovies = async () => {
         );
 
         const data = await response.json();
+
+        const rottenTomatoes = data.Ratings
+          ? data.Ratings.find((rate) => rate.Source === "Rotten Tomatoes")
+          : null;
+        const rottenValue = rottenTomatoes
+          ? rottenTomatoes.Value
+          : "No Rotten Tomatoes rating";
+        console.log(rottenValue);
+
         // return data.results;
-        console.log(response, data);
+        // console.log(response, data);
         if (data.Response === "True") {
           const genre = data.Genre;
+          const rate = data.Ratings;
+          console.log(rate);
           if (genre && genre.includes("Action")) {
             const actionMovies = new ActionMovies(
               data.Title,
               data.Poster,
-              data.Plot
+              data.Plot,
+              data.Rated,
+              rottenTomatoes
             );
             const movieListContainer = document.querySelector(
               ".movie-list-container"
@@ -221,7 +267,9 @@ const fetchMovies = async () => {
             const comedyMovies = new ComedyMovies(
               data.Title,
               data.Poster,
-              data.Plot
+              data.Plot,
+              data.Rated,
+              rottenTomatoes
             );
             const movieListContainerComedy = document.querySelector(
               ".movie-list-container-comedy"
@@ -235,7 +283,9 @@ const fetchMovies = async () => {
             const animationMovies = new AnimationMovies(
               data.Title,
               data.Poster,
-              data.Plot
+              data.Plot,
+              data.Rated,
+              rottenTomatoes
             );
             const movieListContainerAnimation = document.querySelector(
               ".movie-list-container-adventure"
@@ -275,3 +325,16 @@ const fetchMovies = async () => {
   }
 };
 fetchMovies();
+
+class User {
+  constructor(username) {
+    this.username = username;
+    this.collection = this.collection;
+  }
+
+  addMovie(movie) {
+    this.collection.push(movie);
+  }
+}
+
+const user = new User("guest");
