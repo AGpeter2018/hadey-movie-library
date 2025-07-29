@@ -121,18 +121,18 @@ class AnimationMovies extends Movie {
     return `
           
               <div class="movie-list-wrapper">
-                <div class="movie-list ">
-                 <div class="movie-list-item ">
+                <div class="movie-list-animation ">
+                 <div class="movie-list-item-animation ">
                     <img
                      src="${this.image}"
                      alt=""
-                     class="movie-list-item-img"
+                     class="movie-list-item-img-animation"
                     />
-                    <span class="movie-list-item-title">${this.title}</span>
-                    <p class="movie-list-item-desc">
+                    <span class="movie-list-item-title-animation">${this.title}</span>
+                    <p class="movie-list-item-desc-animation">
                      ${this.description}
                     </p>
-                     <button class="list-item-button">WATCH</button>
+                     <button class="list-item-button-animation">WATCH</button>
                  </div>
                 </div>
               </div>
@@ -143,6 +143,7 @@ class AnimationMovies extends Movie {
 const fetchMovies = async () => {
   try {
     const KEY = "c5ad3c2d";
+    const KEYS = "80a925d7";
     // const TITLE = "Guardians of the galaxy";
     const movieTitles = [
       "Inception",
@@ -184,15 +185,18 @@ const fetchMovies = async () => {
       "Mahavatar Narsimha",
       "How to Train Your Dragon",
     ];
-
+    // https://api.themoviedb.org/3/movie/11?append_to_response=videos,images,{
+    //   headers: { Authorization: Bearer ${KEYS}}
+    //         }
     for (const TITLE of movieTitles) {
       try {
         const response = await fetch(
-          `https://www.omdbapi.com/?t=${TITLE}&apikey=${KEY}`
+          `https://www.omdbapi.com/?t=${TITLE}&apikey=${KEYS}`
         );
+
         const data = await response.json();
         // return data.results;
-        console.log(data);
+        console.log(response, data);
         if (data.Response === "True") {
           const genre = data.Genre;
           if (genre && genre.includes("Action")) {

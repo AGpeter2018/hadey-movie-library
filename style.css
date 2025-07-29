@@ -157,8 +157,7 @@ body {
   font-weight: bold;
 }
 
-.movie-list-container,
-.movie-list-container-comedy {
+.movie-list-container {
   padding: 0 5rem;
   display: flex;
   justify-content: center;
@@ -174,6 +173,20 @@ body {
   padding: 10px;  */
 }
 
+.movie-list-container-comedy {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  /* align-items: self-start; */
+  overflow: hidden;
+
+  /* width: 150%; */
+}
+/* .blog-body{
+    height: 28rem;
+    } */
+
 .movie-list-wrapper {
   position: relative;
 }
@@ -183,6 +196,16 @@ body {
   display: flex;
   align-items: center;
   height: 300px;
+  transform: translateX(0);
+  transition: all 1s ease-in-out;
+}
+.movie-list-animation {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 500px;
+  width: 600px;
+  margin: 0 auto;
   transform: translateX(0);
   transition: all 1s ease-in-out;
 }
@@ -199,6 +222,13 @@ body {
   height: 200px;
   overflow: hidden;
 }
+/* .movie-list-item-animation {
+  position: relative;
+  margin-left: 0, auto;
+  padding: 1rem;
+  width: 600px;
+  height: 400px;
+} */
 
 .movie-list-item:hover .movie-list-item-img {
   transform: scale(1.2);
@@ -232,6 +262,17 @@ body {
   opacity: 0;
   transition: 1s all ease-in-out;
 }
+.movie-list-item-title-animation {
+  background-color: #333;
+  padding: 0, 10px;
+  font-size: 32px;
+  font-weight: bold;
+  position: absolute;
+  top: 20%;
+  left: 0px;
+
+  transition: 1s all ease-in-out;
+}
 .movie-list-item-desc {
   background-color: #333;
   padding: 10px;
@@ -242,6 +283,18 @@ body {
   left: 50px;
   width: 230px;
   opacity: 0;
+  transition: 1s all ease-in-out;
+}
+.movie-list-item-desc-animation {
+  background-color: #333;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  position: absolute;
+  top: 60%;
+  left: 50px;
+  width: 230px;
+
   transition: 1s all ease-in-out;
 }
 
@@ -256,7 +309,21 @@ body {
   position: absolute;
   bottom: 20px;
   left: 50px;
-  opacity: 0;
+
+  transition: 1s all ease-in-out;
+}
+.list-item-button-animation {
+  padding: 10px;
+  background-color: #4dbf00;
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 40px;
+  left: 50px;
+
   transition: 1s all ease-in-out;
 }
 
